@@ -1,4 +1,4 @@
 8 hidrogenio -> 1 protactinio
 6 hidrogenio -> 1 europio
-3 europio 3 protatinio -> 1 selenio
-1 selenio -> ouro
+3 europio 3 protactinio -> 1 selenio
+1 selenio -> 1 ouro
