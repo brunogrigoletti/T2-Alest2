@@ -19,7 +19,7 @@ public class Graph{
     In in = new In(filename);
     String line;
     while((line = in.readLine())!=null){
-      String[] edge = line.split(" ");
+      String[] edge = line.split("->");
       addEdge(edge[0], edge[1]);
     }
     in.close();
