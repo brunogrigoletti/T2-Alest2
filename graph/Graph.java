@@ -38,6 +38,15 @@ public class Graph{
     return graph.keySet();
   }
 
+  protected List<String> addToList(String v, String w){
+    List<String> list = graph.get(v);
+    if (list == null)
+      list = new LinkedList<>();
+    list.add(w);
+    graph.put(v, list);
+    return list;
+  }
+
   public String toDot(){
     Set<String> edges = new HashSet<>();
     StringBuilder sb = new StringBuilder();
@@ -55,14 +64,5 @@ public class Graph{
     }
     sb.append("}" + NEWLINE);
     return sb.toString();
-  }
-
-  protected List<String> addToList(String v, String w){
-    List<String> list = graph.get(v);
-    if (list == null)
-      list = new LinkedList<>();
-    list.add(w);
-    graph.put(v, list);
-    return list;
   }
 }
