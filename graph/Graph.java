@@ -1,4 +1,5 @@
 package graph;
+import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -20,6 +21,10 @@ public class Graph{
     String line;
     while((line = in.readLine())!=null){
       String[] edge = line.split("->");
+      String[] left = edge[0].trim().split(" ");
+      BigInteger weightLeft = new BigInteger(left[0]);
+      String[] right = edge[1].trim().split(" ");
+      BigInteger weightRight = new BigInteger(right[0]);
       addEdge(edge[0], edge[1]);
     }
     in.close();
