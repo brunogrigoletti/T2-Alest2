@@ -8,30 +8,30 @@ import java.util.Queue;
 import java.util.Set;
 
 public class BreadthFirstSearch{
-    private Set<String> marked;
-    private Map<String,String> edgeTo;
-    private Map<String,Integer> distTo;
-    private String s;
+    private Set<Vertex> marked;
+    private Map<Vertex,Vertex> edgeTo;
+    private Map<Vertex,Integer> distTo;
+    private Vertex v;
 
-    public BreadthFirstSearch(Graph g, String s){
-        this.s = s;
+    public BreadthFirstSearch(Graph g, Vertex v){
+        this.v = new Vertex();
         this.marked = new HashSet<>();
         this.edgeTo = new HashMap<>();
         this.distTo = new HashMap<>();
-        bfs(g,s);
+        bfs(g,v);
     }
 
-    private void bfs(Graph g, String s){
-        Queue<String> q = new LinkedList<>();
-        q.add(s);
-        marked.add(s);
-        distTo.put(s,0);
+    private void bfs(Graph g, Vertex v){
+        Queue<Vertex> q = new LinkedList<>();
+        q.add(v);
+        marked.add(v);
+        distTo.put(v,0);
         while (!q.isEmpty()){
-            String v = q.remove();
-            for (String w : g.getAdj(v)){
+            Vertex s = q.remove();
+            for (Vertex w : g.getAdj(s)){
                 if (!marked.contains(w)){
-                    edgeTo.put(w,v);
-                    distTo.put(w,distTo.get(v)+1);
+                    edgeTo.put(w,s);
+                    distTo.put(w,distTo.get(s)+1);
                     q.add(w);
                     marked.add(w);
                 }
@@ -39,26 +39,26 @@ public class BreadthFirstSearch{
         }
     }
 
-    public int distTo(String s){
-        if (hasPathTo(s)){
-            return distTo.get(s);
+    public int distTo(Vertex v){
+        if (hasPathTo(v)){
+            return distTo.get(v);
         }
         return -1;
     }
 
-    public Iterable<String> pathTo(String v){
-        List<String> path = new LinkedList<>();
+    public Iterable<Vertex> pathTo(Vertex v){
+        List<Vertex> path = new LinkedList<>();
         if (hasPathTo(v)){
-            while (!v.equals(s)){
+            while (!v.equals(v)){
                 path.add(0,v);
                 v = edgeTo.get(v);
             }
-            path.add(0,s);
+            path.add(0,v);
         }
         return path;
     }
 
-    public boolean hasPathTo(String v){
+    public boolean hasPathTo(Vertex v){
         return marked.contains(v);
     }
 }

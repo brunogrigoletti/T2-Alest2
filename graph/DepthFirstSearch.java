@@ -7,20 +7,20 @@ import java.util.Map;
 import java.util.Set;
 
 public class DepthFirstSearch{
-    private Set<String> marked;
-    private Map<String, String> edgeTo;
-    private String s;
+    private Set<Vertex> marked;
+    private Map<Vertex, Vertex> edgeTo;
+    private Vertex v;
 
-    public DepthFirstSearch(Graph g, String s){
-        this.s = s;
+    public DepthFirstSearch(Graph g, Vertex v){
+        this.v = new Vertex();
         this.marked = new HashSet<>();
         this.edgeTo = new HashMap<>();
-        dfs(g,s);
+        dfs(g,v);
     }
 
-    private void dfs(Graph g, String v){
+    private void dfs(Graph g, Vertex v){
         marked.add(v);
-        for (String w : g.getAdj(v)){
+        for (Vertex w : g.getAdj(v)){
             if (!marked.contains(w)){
                 edgeTo.put(w,v);
                 dfs(g,w);
@@ -28,19 +28,19 @@ public class DepthFirstSearch{
         }
     }
 
-    public Iterable<String> pathTo(String v){
-        List<String> path = new LinkedList<>();
+    public Iterable<Vertex> pathTo(Vertex v){
+        List<Vertex> path = new LinkedList<>();
         if (hasPathTo(v)){
-            while (!v.equals(s)){
+            while (!v.equals(v)){
                 path.add(0,v);
                 v = edgeTo.get(v);
             }
-            path.add(0,s);
+            path.add(0,v);
         }
         return path;
     }
 
-    public boolean hasPathTo(String v){
+    public boolean hasPathTo(Vertex v){
         return marked.contains(v);
     }
 }
