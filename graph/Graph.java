@@ -25,8 +25,8 @@ public class Graph{
       String leftWeight = null;
       String leftElement = null;
       Vertex leftVertex = null;
-      LinkedList<Vertex> leftVertices = new LinkedList();
-      LinkedList<Vertex> rightVertices = new LinkedList();
+      LinkedList<Vertex> leftVertices = new LinkedList<>();
+      LinkedList<Vertex> rightVertices = new LinkedList<>();
       for (String s : left){
         if (s.matches("-?\\d+"))
           leftWeight = s;
