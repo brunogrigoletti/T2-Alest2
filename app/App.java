@@ -7,7 +7,7 @@ public class App{
     Digraph g;
 
     public App(){
-        this.g = new Digraph("cases\\minicaso.txt");
+        this.g = new Digraph("cases\\casoteste.txt");
     }
 
     public void runCase(){

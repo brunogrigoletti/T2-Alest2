@@ -90,7 +90,7 @@ public class Graph{
       for (Vertex w: getAdj(v)){
         String edge = v.compareTo(w) > 0 ? v.getElement() + w.getElement() : w.getElement() + v.getElement();
         if(!edges.contains(edge)){
-          sb.append(w.getElement()+w.getWeight() + " -- " + v.getElement()+v.getWeight() + NEWLINE);
+          sb.append(w.getElement() + " -- " + v.getElement() + NEWLINE);
           edges.add(edge);
         }
       }

@@ -18,7 +18,7 @@ public class Digraph extends Graph{
     sb.append("node [shape = circle];"+NEWLINE);
     for(Vertex v: getVerts().stream().sorted().toList())
       for (Vertex w: getAdj(v))
-        sb.append(v.getElement()+v.getWeight() + " -> " + w.getElement()+w.getWeight() + NEWLINE);
+        sb.append(v.getElement() + " -> " + w.getElement() + NEWLINE);
     sb.append("}" + NEWLINE);
     return sb.toString();
   }
