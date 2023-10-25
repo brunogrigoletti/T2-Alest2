@@ -1,18 +1,22 @@
 package app;
 
-import graph.Graph;
+import graph.Digraph;
 import graph.Vertex;
 
 public class App{
-    Graph g;
+    Digraph g;
 
     public App(){
-        this.g = new Graph("cases\\minicaso.txt");
+        this.g = new Digraph("cases\\minicaso.txt");
     }
 
-    public void runCases(){
+    public void runCase(){
         for (Vertex v : g.getVerts()){
-            System.out.println(v.getWeight()+"-"+v.getElement());
+            System.out.print(v.getWeight()+"-"+v.getElement() + " - ");
+            for (Vertex w : g.getAdj(v)){
+                System.out.println(w.getWeight()+"-"+w.getElement() + " ");
+            }
         }
+        System.out.println(g.toDot());
     }
 }

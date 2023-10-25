@@ -2,7 +2,7 @@ package graph;
 
 import java.math.BigInteger;
 
-public class Vertex{
+public class Vertex implements Comparable<Vertex>{
     private BigInteger weight;
     private String element;
 
@@ -22,5 +22,10 @@ public class Vertex{
 
     public String getElement(){
         return this.element;
+    }
+
+    @Override
+    public int compareTo(Vertex other){
+        return this.weight.compareTo(other.weight);
     }
 }
