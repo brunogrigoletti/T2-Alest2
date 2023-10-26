@@ -1,4 +1,5 @@
 package graph;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -13,15 +14,15 @@ public class BreadthFirstSearch{
     private Map<Vertex,Integer> distTo;
     private Vertex v;
 
-    public BreadthFirstSearch(Graph g, Vertex v){
-        this.v = new Vertex();
+    public BreadthFirstSearch(Digraph g, Vertex v){
+        this.v = v;
         this.marked = new HashSet<>();
         this.edgeTo = new HashMap<>();
         this.distTo = new HashMap<>();
         bfs(g,v);
     }
 
-    private void bfs(Graph g, Vertex v){
+    private void bfs(Digraph g, Vertex v){
         Queue<Vertex> q = new LinkedList<>();
         q.add(v);
         marked.add(v);

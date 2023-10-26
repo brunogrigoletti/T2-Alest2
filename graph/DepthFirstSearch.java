@@ -11,14 +11,14 @@ public class DepthFirstSearch{
     private Map<Vertex, Vertex> edgeTo;
     private Vertex v;
 
-    public DepthFirstSearch(Graph g, Vertex v){
-        this.v = new Vertex();
+    public DepthFirstSearch(Digraph g, Vertex v){
+        this.v = v;
         this.marked = new HashSet<>();
         this.edgeTo = new HashMap<>();
         dfs(g,v);
     }
 
-    private void dfs(Graph g, Vertex v){
+    private void dfs(Digraph g, Vertex v){
         marked.add(v);
         for (Vertex w : g.getAdj(v)){
             if (!marked.contains(w)){
