@@ -9,7 +9,7 @@ public class App {
 
     public void readFile() {
         try {
-            g.loadFromFile("cases/casof80.txt");
+            g.loadFromFile("cases/casof360.txt");
         } catch (Exception e) {
             System.out.println("Erro ao ler o arquivo");
         }

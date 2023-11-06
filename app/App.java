@@ -11,7 +11,7 @@ public class App {
     Digraph g;
 
     public App() {
-        this.g = new Digraph("cases\\casoteste.txt");
+        this.g = new Digraph("cases/casoteste.txt");
     }
 
     public void digraph() {
@@ -25,7 +25,7 @@ public class App {
     }
 
     public void edgeWeightedGraph() {
-        EdgeWeightedGraph g = new EdgeWeightedGraph("cases\\casoteste.txt");
+        EdgeWeightedGraph g = new EdgeWeightedGraph("cases/casoteste.txt");
         Set<String> processedConnections = new HashSet<>();
         for (Vertex v : g.getVerts()) {
             for (Edge e : g.getAdj(v)) {

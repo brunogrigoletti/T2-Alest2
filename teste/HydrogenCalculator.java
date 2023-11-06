@@ -1,4 +1,3 @@
-
 import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -9,18 +8,18 @@ public class HydrogenCalculator {
     private Map<Vertex, BigInteger> hydrogenCount = new HashMap<>();
     private Set<Vertex> visited = new HashSet<>();
     private Digraph graph;
-    BigInteger result = BigInteger.ZERO;
 
     public HydrogenCalculator(Digraph graph) {
         this.graph = graph;
     }
 
     public BigInteger sumProduct(Vertex start) {
-        if (visited.contains(start)) {
-            return BigInteger.ZERO;
+        if (hydrogenCount.containsKey(start)) {
+            return hydrogenCount.get(start);
         }
 
         if (graph.getEdges(start).isEmpty()) {
+            hydrogenCount.put(start, BigInteger.ONE);
             return BigInteger.ONE;
         }
 
@@ -30,12 +29,13 @@ public class HydrogenCalculator {
         for (Edge edge : graph.getEdges(start)) {
             if (!visited.contains(edge.getTo())) {
                 BigInteger subtreeResult = BigInteger.valueOf(edge.getWeight()).multiply(sumProduct(edge.getTo()));
-                hydrogenCount.put(edge.getFrom(), subtreeResult);
                 result = result.add(subtreeResult);
             }
         }
 
-        visited.remove(start); // Remover da lista de visitados para permitir outras buscas
+        hydrogenCount.put(start, result);
+
+        visited.remove(start);
         return result;
     }
 
