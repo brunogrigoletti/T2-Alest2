@@ -1,4 +1,4 @@
-package graph;
+package test;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -6,6 +6,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import graph.Edge;
+import graph.In;
+import graph.Vertex;
 
 public class EdgeWeightedGraph {
     protected static final String NEWLINE = System.getProperty("line.separator");
@@ -32,7 +35,7 @@ public class EdgeWeightedGraph {
                     leftWeight = s;
                 else {
                     leftElement = s;
-                    leftVertex = new Vertex(leftWeight, leftElement);
+                    leftVertex = new Vertex(leftElement);
                     leftVertices.add(leftVertex);
                 }
             }
@@ -45,13 +48,13 @@ public class EdgeWeightedGraph {
                     rightWeight = s;
                 else {
                     rightElement = s;
-                    rightVertex = new Vertex(rightWeight, rightElement);
+                    rightVertex = new Vertex(rightElement);
                     rightVertices.add(rightVertex);
                 }
             }
             for (Vertex v : leftVertices) {
                 for (Vertex w : rightVertices) {
-                    addEdge(v, w, Double.parseDouble(v.getWeight().toString()));
+                    //addEdge(v, w, Double.parseDouble(v.getWeight().toString()));
                 }
             }
         }
@@ -59,9 +62,9 @@ public class EdgeWeightedGraph {
     }
 
     public void addEdge(Vertex v, Vertex w, double weight) {
-        Edge e = new Edge(v, w, weight);
-        addToList(v, e);
-        addToList(w, e);
+        // Edge e = new Edge(v, w, weight);
+        // addToList(v, e);
+        // addToList(w, e);
     }
 
     public Iterable<Edge> getAdj(Vertex v) {
@@ -91,7 +94,7 @@ public class EdgeWeightedGraph {
             for (Edge e : getAdj(v)) {
                 String edge = e.toString();
                 if (!edges.contains(edge)) {
-                    sb.append(String.format("%s -- %s [label=\"%.0f\"]", e.getV().getElement(), e.getW().getElement(),
+                    sb.append(String.format("%s -- %s [label=\"%.0f\"]", e.getFrom().getName(), e.getTo().getName(),
                             e.getWeight()) + NEWLINE);
                     edges.add(edge);
                 }

@@ -1,43 +1,34 @@
 package app;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.math.BigInteger;
 import graph.Digraph;
-import graph.Edge;
-import graph.EdgeWeightedGraph;
+import graph.HydrogenCalculator;
 import graph.Vertex;
 
 public class App {
     Digraph g;
 
     public App() {
-        this.g = new Digraph("cases/casoteste.txt");
+        this.g = new Digraph();
+    }
+
+    public void readFile() {
+        try {
+            g.loadFromFile("cases/casof360.txt");
+        }
+        catch (Exception e) {
+            System.out.println("Erro ao ler o arquivo.");
+        }
     }
 
     public void digraph() {
-        for (Vertex v : g.getVerts()) {
-            System.out.print(v.getWeight() + "-" + v.getElement() + " - ");
-            for (Vertex w : g.getAdj(v)) {
-                System.out.println(w.getWeight() + "-" + w.getElement() + " ");
-            }
-        }
-        System.out.println("\n" + g.toDot());
+        System.out.println(g.toString());
     }
 
-    public void edgeWeightedGraph() {
-        EdgeWeightedGraph g = new EdgeWeightedGraph("cases/casoteste.txt");
-        Set<String> processedConnections = new HashSet<>();
-        for (Vertex v : g.getVerts()) {
-            for (Edge e : g.getAdj(v)) {
-                String connection = v.getWeight() + "-" + v.getElement() + " - " + e.getW().getWeight() + "-"
-                        + e.getW().getElement();
-                if (!processedConnections.contains(connection) && !v.getElement().equals(e.getW().getElement())) {
-                    System.out.print(v.getWeight() + "-" + v.getElement() + " - ");
-                    System.out.print(e.getW().getWeight() + "-" + e.getW().getElement() + " " + "\n");
-                    processedConnections.add(connection);
-                }
-            }
-        }
-        System.out.println("\n" + g.toDot());
+    public void getHydrogenCount() {
+        Vertex start = g.getHydrogen();
+        HydrogenCalculator hc = new HydrogenCalculator(g);
+        BigInteger result = hc.sumProduct(start);
+        System.out.println("Hidrogênios: " + result.toString());
     }
 }

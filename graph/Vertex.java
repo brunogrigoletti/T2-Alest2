@@ -1,26 +1,33 @@
 package graph;
 
-import java.math.BigInteger;
+public class Vertex {
+    private String name;
 
-public class Vertex implements Comparable<Vertex>{
-    private BigInteger weight;
-    private String element;
-
-    public Vertex(String weight, String element){
-        this.weight = new BigInteger(weight);
-        this.element = element;
+    public Vertex(String name) {
+        this.name = name;
     }
 
-    public BigInteger getWeight(){
-        return this.weight;
-    }
-
-    public String getElement(){
-        return this.element;
+    public String getName() {
+        return name;
     }
 
     @Override
-    public int compareTo(Vertex other){
-        return this.weight.compareTo(other.weight);
+    public String toString() {
+        return name;
+    }
+
+    @Override
+    public int hashCode() {
+        return name.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null || getClass() != obj.getClass())
+            return false;
+        Vertex vertex = (Vertex) obj;
+        return name.equals(vertex.name);
     }
 }

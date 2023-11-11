@@ -1,35 +1,30 @@
 package graph;
 
-public class Edge implements Comparable<Edge> {
-    private Vertex v;
-    private Vertex w;
-    private double weight;
+public class Edge {
+    private Vertex from;
+    private Vertex to;
+    private long weight;
 
-    public Edge(Vertex v, Vertex w, double weight) {
-        this.v = v;
-        this.w = w;
+    public Edge(Vertex from, Vertex to, long weight) {
+        this.from = from;
+        this.to = to;
         this.weight = weight;
     }
 
-    public Vertex getV() {
-        return this.v;
+    public Vertex getFrom() {
+        return from;
     }
 
-    public Vertex getW() {
-        return this.w;
+    public Vertex getTo() {
+        return to;
     }
 
-    public double getWeight() {
-        return this.weight;
-    }
-
-    @Override
-    public int compareTo(Edge other) {
-        return Double.compare(this.weight, other.weight);
+    public long getWeight() {
+        return weight;
     }
 
     @Override
     public String toString() {
-        return this.v + "-" + this.w + " (" + this.weight + ")";
+        return from + " -> " + to + " [label=" + weight + "]";
     }
 }

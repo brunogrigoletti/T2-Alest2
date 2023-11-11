@@ -1,92 +1,59 @@
 package graph;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.io.FileNotFoundException;
+import java.util.*;
 
 public class Digraph {
-  protected static final String NEWLINE = System.getProperty("line.separator");
-  protected Map<Vertex, List<Vertex>> graph;
+    private Map<Vertex, List<Edge>> adjList;
+    private Vertex hydrogen;
+    private boolean hydrogenRead;
 
-  public Digraph() {
-    graph = new HashMap<>();
-  }
-
-  public Digraph(String filename) {
-    this();
-    In in = new In(filename);
-    String line;
-    while ((line = in.readLine()) != null) {
-      String[] edge = line.split("->");
-      String[] left = edge[0].trim().split(" ");
-      String leftWeight = null;
-      String leftElement = null;
-      Vertex leftVertex = null;
-      LinkedList<Vertex> leftVertices = new LinkedList<>();
-      LinkedList<Vertex> rightVertices = new LinkedList<>();
-      for (String s : left) {
-        if (s.matches("-?\\d+"))
-          leftWeight = s;
-        else {
-          leftElement = s;
-          leftVertex = new Vertex(leftWeight, leftElement);
-          leftVertices.add(leftVertex);
-        }
-      }
-      String[] right = edge[1].trim().split(" ");
-      String rightWeight = null;
-      String rightElement = null;
-      Vertex rightVertex = null;
-      for (String s : right) {
-        if (s.matches("-?\\d+"))
-          rightWeight = s;
-        else {
-          rightElement = s;
-          rightVertex = new Vertex(rightWeight, rightElement);
-          rightVertices.add(rightVertex);
-        }
-      }
-      for (Vertex v : leftVertices) {
-        for (Vertex w : rightVertices) {
-          addEdge(v, w);
-        }
-      }
+    public Digraph() {
+        this.adjList = new HashMap<>();
+        this.hydrogenRead = false;
     }
-    in.close();
-  }
 
-  public void addEdge(Vertex v, Vertex w) {
-    addToList(v, w);
-  }
+    public void addEdge(Vertex from, Vertex to, long weight) {
+        this.adjList.computeIfAbsent(from, k -> new ArrayList<>()).add(new Edge(from, to, weight));
+    }
 
-  public Iterable<Vertex> getAdj(Vertex v) {
-    return graph.get(v);
-  }
+    public List<Edge> getEdges(Vertex vertex) {
+        return adjList.getOrDefault(vertex, Collections.emptyList());
+    }
 
-  public Set<Vertex> getVerts() {
-    return graph.keySet();
-  }
+    public void loadFromFile(String filename) throws FileNotFoundException {
+        In in = new In(filename);
+        String line;
+        while ((line = in.readLine()) != null) {
+            String[] parts = line.split("->");
+            String[] from = parts[0].trim().split(" ");
+            String[] to = parts[1].trim().split(" ");
+            for (int i = 0; i < from.length; i += 2) {
+                long fromWeight = Long.parseLong(from[i]);
+                Vertex fromVertex = new Vertex(from[i + 1]);
+                if (!hydrogenRead && fromVertex.getName().equals("hidrogenio")) {
+                    hydrogen = fromVertex;
+                    hydrogenRead = true;
+                }
+                long toWeight = Long.parseLong(to[0]);
+                Vertex toVertex = new Vertex(to[1]);
+                addEdge(fromVertex, toVertex, fromWeight * toWeight);
+            }
+        }
+    }
 
-  protected List<Vertex> addToList(Vertex v, Vertex w) {
-    List<Vertex> list = graph.get(v);
-    if (list == null)
-      list = new LinkedList<>();
-    list.add(w);
-    graph.put(v, list);
-    return list;
-  }
+    public Vertex getHydrogen() {
+        return hydrogen;
+    }
 
-  public String toDot() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("digraph {" + NEWLINE);
-    sb.append("rankdir = LR;" + NEWLINE);
-    sb.append("node [shape = circle];" + NEWLINE);
-    for (Vertex v : getVerts().stream().sorted().toList())
-      for (Vertex w : getAdj(v))
-        sb.append(v.getElement() + " -> " + w.getElement() + NEWLINE);
-    sb.append("}" + NEWLINE);
-    return sb.toString();
-  }
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (Map.Entry<Vertex, List<Edge>> entry : adjList.entrySet()) {
+            for (Edge edge : entry.getValue()) {
+                sb.append(edge).append('\n');
+            }
+        }
+        return sb.toString();
+    }
 }
