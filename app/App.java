@@ -14,7 +14,7 @@ public class App {
 
     public void readFile() {
         try {
-            g.loadFromFile("cases/casof360.txt");
+            g.loadFromFile("cases/casoteste.txt");
         }
         catch (Exception e) {
             System.out.println("Erro ao ler o arquivo.");

@@ -6,6 +6,8 @@ public class Main {
         long start = System.currentTimeMillis();
         app.getHydrogenCount();
         long end = System.currentTimeMillis();
-        System.out.println("Tempo de execução: " + (end - start) + "ms");
+        System.out.println("Tempo de execução: " + (end - start) + "ms" + "\n");
+        System.out.println("Grafo: " + "\n");
+        app.digraph();
     }
 }

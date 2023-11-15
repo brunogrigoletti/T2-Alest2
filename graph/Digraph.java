@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.util.*;
 
 public class Digraph {
+    protected static final String NEWLINE = System.getProperty("line.separator");
     private Map<Vertex, List<Edge>> adjList;
     private Vertex hydrogen;
     private boolean hydrogenRead;
@@ -49,11 +50,15 @@ public class Digraph {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
+        sb.append("digraph {" + NEWLINE);
+        sb.append("rankdir = LR;" + NEWLINE);
+        sb.append("node [shape = circle];" + NEWLINE);
         for (Map.Entry<Vertex, List<Edge>> entry : adjList.entrySet()) {
             for (Edge edge : entry.getValue()) {
                 sb.append(edge).append('\n');
             }
         }
+        sb.append("}" + NEWLINE);
         return sb.toString();
     }
 }
